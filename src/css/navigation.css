@@ -1,0 +1,18 @@
+.nav-wrapper ul{
+    display:flex;
+}
+.nav-wrapper li{
+    padding:1%;
+}
+.nav-wrapper{
+    padding:30px;
+    margin:0px;
+    background: rgb(270, 115, 84);
+    color:rgb(234, 238, 237);
+}
+.nav-wrapper li:hover{
+    color:black;
+    cursor:pointer;
+}
+
+

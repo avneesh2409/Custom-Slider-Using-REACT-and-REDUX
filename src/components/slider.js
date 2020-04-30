@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { SliderImage } from './child/sliderImage'
 import { ToggleImage } from './child/toggleImage'
 import { SliderDots } from './child/sliderDots'
@@ -7,6 +7,7 @@ import { storeSliderState } from '../store/action'
 
 const Slider = () =>{
     const dispatch = useDispatch();
+    const [error, setError] = useState(false)
     useEffect(() => {
         let url = "https://reqres.in/api/users?page=2";
         const fetchData = (url) =>{
@@ -15,16 +16,21 @@ const Slider = () =>{
             .then(json=>dispatch(storeSliderState(json.data.map(e=>({url: e.avatar,
                 name : e.first_name + e.last_name})))
                 ))
-            .catch(err=>alert("error occured"))
+            .catch(err=>{console.log(err);setError(true)})
         }
         fetchData(url)
     }, [])
     return (
         <div className="slideshow-container">
-            <h3 style={{textTransform:'capitalize',color:'#b3b3b3',textAlign:'center'}}>hello this is Slider</h3>
-            <SliderImage />
-            <ToggleImage />
-            <SliderDots />
+            {
+                (error)?<h1>Internet is not available</h1>
+                    :<React.Fragment>
+                        <h3 style={{textTransform:'capitalize',color:'#b3b3b3',textAlign:'center'}}>hello this is Slider</h3>
+                        <SliderImage />
+                        <ToggleImage />
+                        <SliderDots />
+                </React.Fragment>
+            }
         </div>
     )
 }
